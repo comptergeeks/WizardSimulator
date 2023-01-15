@@ -15,7 +15,7 @@ public class Wizard {
     float stateTime;
     int x;
     int y;
-    int speed = 3;
+    int speed = 2;
     int vertical = 0;
     int horizontal = 0;
     TextureRegion[] region;
@@ -59,7 +59,7 @@ public class Wizard {
             currentFrame = walkLeftAnim.getKeyFrame(stateTime, true);
         }
         move = normalize(move);
-        batch.draw(currentFrame, x+= move.x * speed , y+= move.y * speed);
+        batch.draw(currentFrame, x+= move.x * speed , y+= move.y * speed, 17, 17);
     }
     public Vector2 normalize(Vector2 move) {
         double mag = Math.sqrt(move.x*move.x + move.y*move.y);
@@ -95,7 +95,11 @@ public class Wizard {
         walkUpRegion[2] = region[11];
         walkUpAnim = new Animation<TextureRegion>(0.2f, walkUpRegion);
         stateTime = 0f;
-
     }
-
+    public int sendX() {
+        return x;
+    }
+    public int sendY() {
+        return y;
+    }
 }

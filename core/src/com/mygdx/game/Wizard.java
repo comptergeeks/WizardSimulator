@@ -41,6 +41,7 @@ public class Wizard {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = region[1];
         //maybe add a true false system to determine which key was last pressed and find orinetation
+        //avoid out of bounds movement via && statment whithin the script once map is passed
         Vector2 move = new Vector2(vertical, horizontal);
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             move.y = 1;

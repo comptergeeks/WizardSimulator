@@ -75,6 +75,7 @@ public class GameScreen extends ApplicationAdapter {
 	}
 	//create sprite sheet that is accessed by player class -> maybe switch to recursion to meet requirements
 	//move to wizard class later
+	//set a number when character is picked mutiply that number by 16 and add 1 to it each time, this approach will work and properly set the wizard spirte, but does not account for y axis change
 	public void createSpriteSheet() {
 		int tempY = 0;
 		int tempX = 0;

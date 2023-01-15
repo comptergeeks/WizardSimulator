@@ -1,12 +1,14 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 
 public class Wizard {
+    private Animation<TextureRegion> walkUp;
     int x;
     int y;
     int speed = 5;
@@ -39,7 +41,7 @@ public class Wizard {
             move.x = -1;
         }
         move = normalize(move);
-        batch.draw(region[3], x+= move.x * speed , y+= move.y * speed);
+        batch.draw(region[1], x+= move.x * speed , y+= move.y * speed);
     }
     public Vector2 normalize(Vector2 move) {
         double mag = Math.sqrt(move.x*move.x + move.y*move.y);

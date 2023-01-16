@@ -1,6 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -25,18 +26,23 @@ public class Wizard {
     TextureRegion[] walkUpRegion;
     TextureRegion currentFrame;
     SpriteBatch batch;
+    Texture wizardSheet;
 
-    public Wizard(TextureRegion[] region, SpriteBatch batch) {
+    public Wizard(TextureRegion[] region, SpriteBatch batch, Texture wizardSheet) {
         this.region = region;
         this.batch = batch;
+        this.wizardSheet = wizardSheet;
+        createSpriteSheet();
         animationController();
 
 
     }
+
     public void render() {
         update();
 
     }
+
     public void update() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = region[1];
@@ -60,16 +66,18 @@ public class Wizard {
             currentFrame = walkLeftAnim.getKeyFrame(stateTime, true);
         }
         move = normalize(move);
-        batch.draw(currentFrame, x+= move.x * speed , y+= move.y * speed, 17, 17);
+        batch.draw(currentFrame, x += move.x * speed, y += move.y * speed, 17, 17);
     }
+
     public Vector2 normalize(Vector2 move) {
-        double mag = Math.sqrt(move.x*move.x + move.y*move.y);
-        if(mag > 0) {
+        double mag = Math.sqrt(move.x * move.x + move.y * move.y);
+        if (mag > 0) {
             move.x /= mag;
             move.y /= mag;
         }
         return move;
     }
+
     public void animationController() {
         walkDownRegion = new TextureRegion[3];
         walkDownRegion[0] = region[0];
@@ -97,10 +105,30 @@ public class Wizard {
         walkUpAnim = new Animation<TextureRegion>(0.2f, walkUpRegion);
         stateTime = 0f;
     }
+
     public int sendX() {
         return x;
     }
+
     public int sendY() {
         return y;
+    }
+
+    //create sprite sheet that is accessed by player class -> maybe switch to recursion to meet requirements
+    //set a number when character is picked mutiply that number by 16 and add 1 to it each time, this approach will work and properly set the wizard spirte, but does not account for y axis change
+    public void createSpriteSheet() {
+        int tempY = 0;
+        int tempX = 0;
+        for (int i = 0; i < 12; i++) {
+            if (i % 3 == 0 && i != 0) {
+                tempY += 16;
+            }
+            region[i] = new TextureRegion(wizardSheet, tempX, tempY, 16, 16);
+            if (tempX != 32) {
+                tempX += 16;
+            } else {
+                tempX = 0;
+            }
+        }
     }
 }

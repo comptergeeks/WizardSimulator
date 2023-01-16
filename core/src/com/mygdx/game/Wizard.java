@@ -1,11 +1,19 @@
 package com.mygdx.game;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Wizard {
@@ -27,11 +35,16 @@ public class Wizard {
     TextureRegion currentFrame;
     SpriteBatch batch;
     Texture wizardSheet;
+    GameScreen game;
+    ArrayList<MapObject> list;
 
-    public Wizard(TextureRegion[] region, SpriteBatch batch, Texture wizardSheet) {
+    public Wizard(TextureRegion[] region, SpriteBatch batch, Texture wizardSheet, GameScreen game) {
         this.region = region;
         this.batch = batch;
         this.wizardSheet = wizardSheet;
+        this.game = game;
+        list = new ArrayList<>();
+
         createSpriteSheet();
         animationController();
 
@@ -40,7 +53,6 @@ public class Wizard {
 
     public void render() {
         update();
-
     }
 
     public void update() {
@@ -130,5 +142,21 @@ public class Wizard {
                 tempX = 0;
             }
         }
+    }
+
+    public void setUpCollision() {
+        if (game.selectedMap.equals(String.valueOf(Level.INSIDE))) {
+            for (MapObject objects: game.insideScene.getLayers().get("walls").getObjects()){
+                list.add(objects);
+            }
+            for (MapObject objects: game.insideScene.getLayers().get("Furniture").getObjects()){
+                list.add(objects);
+            }
+            System.out.println(Arrays.toString(list.toArray()));
+    }
+    }
+
+    public boolean isColliding() {
+        return false;
     }
 }

@@ -8,6 +8,7 @@ public class Inside extends ScreenAdapter {
     public Inside(GameScreen game) {
         this.game = game;
         game.loadMap(game.insideScene);
+        game.selectedMap = String.valueOf(Level.INSIDE);
     }
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);

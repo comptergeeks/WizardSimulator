@@ -24,6 +24,7 @@ public class GameScreen extends Game {
 	TextureRegion[] region;
 	Wizard wizard;
 	Camera worldCam;
+	String selectedMap;
 
 
 
@@ -40,10 +41,11 @@ public class GameScreen extends Game {
 		batch = new SpriteBatch();
 		setScreen(new TitleScreen(this));
 
-		wizard = new Wizard(region, batch, wizardSheet);
+		wizard = new Wizard(region, batch, wizardSheet, this);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 200, 200);
 		worldCam = new Camera(camera, 480, 480, wizard);
+		selectedMap = String.valueOf(Level.MENU);
 	}
 	@Override
 	public void dispose () {

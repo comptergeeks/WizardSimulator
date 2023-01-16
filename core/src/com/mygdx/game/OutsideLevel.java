@@ -11,19 +11,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class OutsideLevel extends ScreenAdapter {
     GameScreen game;
-//    private OrthographicCamera camera;
-//    OrthogonalTiledMapRenderer renderer;
-//    public SpriteBatch batch;
-//    TiledMap map;
-//
-//    Texture wizardSheet;
-//    region array = spritesheet
-//    TextureRegion[] region;
-//    Wizard wizard;
-//    Camera worldCam;
+
     public OutsideLevel(GameScreen game) {
+        game.wizard.x = 40;
         this.game = game;
         game.loadMap(game.outsideScene);
+        game.selectedMap = String.valueOf(Level.OUTSIDE);
     }
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -36,10 +29,11 @@ public class OutsideLevel extends ScreenAdapter {
         game.worldCam.updateCameraPos();
         if(game.wizard.sendX() > 428 && game.wizard.sendX() < 478 && game.wizard.sendY() > 316 && game.wizard.sendY() < 330) {
             game.setScreen(new Inside(game));
-            game.wizard.x = 0;
+            game.wizard.x = 16;
             game.wizard.y = 0;
             game.camera.update();
             game.worldCam.updateCameraPos();
+            game.wizard.setUpCollision();
         }
         game.batch.end();
     }

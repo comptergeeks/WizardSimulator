@@ -23,6 +23,7 @@ public class OutsideLevel extends ScreenAdapter {
 //    Camera worldCam;
     public OutsideLevel(GameScreen game) {
         this.game = game;
+        game.loadMap(game.outsideScene);
     }
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -35,14 +36,16 @@ public class OutsideLevel extends ScreenAdapter {
         game.worldCam.updateCameraPos();
         if(game.wizard.sendX() > 428 && game.wizard.sendX() < 478 && game.wizard.sendY() > 316 && game.wizard.sendY() < 330) {
             game.setScreen(new Inside(game));
-            System.out.println("hello");
+            game.wizard.x = 0;
+            game.wizard.y = 0;
+            game.camera.update();
+            game.worldCam.updateCameraPos();
         }
         game.batch.end();
     }
 
     @Override
     public void hide() {
-        game.batch.dispose();
-        super.hide();
+        game.outsideScene.dispose();
     }
 }

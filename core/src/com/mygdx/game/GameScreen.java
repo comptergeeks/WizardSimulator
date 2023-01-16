@@ -33,10 +33,9 @@ public class GameScreen extends Game {
 		wizardSheet = new Texture(Gdx.files.internal("/Users/farhankhan/Documents/school/12 grade/RPGProject/assets/06-conjurer.png"));
 
 		outsideScene = new TmxMapLoader().load("/Users/farhankhan/Documents/school/12 grade/RPGProject/assets/outsidetiledmap/outsideHouse.tmx");
-		loadMap();
+		insideScene = new TmxMapLoader().load("/Users/farhankhan/Documents/school/12 grade/RPGProject/assets/insidetiledmap/insidehouse.tmx");
 
 		region = new TextureRegion[12];
-		//createSpriteSheet();
 
 		batch = new SpriteBatch();
 		setScreen(new TitleScreen(this));
@@ -51,9 +50,9 @@ public class GameScreen extends Game {
 		batch.dispose();
 	}
 
-	public void loadMap() {
+	public void loadMap(TiledMap mapToLoad) {
 		float unitScale = 1f;
 		//render based on chosen scene (enum perhaps)
-		renderer = new OrthogonalTiledMapRenderer(outsideScene, unitScale);
+		renderer = new OrthogonalTiledMapRenderer(mapToLoad, unitScale);
 	}
 }

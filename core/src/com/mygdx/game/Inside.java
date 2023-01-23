@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Inside extends ScreenAdapter {
     GameScreen game;
     public Inside(GameScreen game) {
+        //similar set up to outside level
         this.game = game;
         game.loadMap(game.insideScene);
         game.selectedMap = String.valueOf(Level.INSIDE);

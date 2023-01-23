@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -19,18 +20,21 @@ public class Camera {
     float cameraRight;
     float cameraBottom;
     float cameraTop;
+    GameScreen game;
     Wizard wizard;
     OrthographicCamera camera;
 
-    public Camera(OrthographicCamera camera, int mapTop, int mapRight, Wizard wizard) {
+    public Camera(OrthographicCamera camera, int mapTop, int mapRight, Wizard wizard, GameScreen game) {
         this.camera = camera;
         this.mapTop = mapTop;
         this.mapRight = mapRight;
         this.wizard = wizard;
+        this.game = game;
 
     }
 
-    //referenced in documenation, stack exchange to move camera (might update layer)
+    //referenced in documenation, stack exchange to move camera
+    //via user on stack exchange
     //shorter method might be to clamp camera position, create an alternative method and test tehre.
     public void updateCameraPos() {
         Vector2 camerPos = new Vector2(wizard.sendX(), wizard.sendY());
@@ -41,8 +45,13 @@ public class Camera {
         cameraRight= camera.position.x + cameraHalfWidth;
         cameraBottom = camera.position.y - cameraHalfHeight;
         cameraTop = camera.position.y + cameraHalfHeight;
-
-        if(480 < camera.viewportWidth)
+        if (game.selectedMap.equals(String.valueOf(Level.INSIDE))) {
+            mapRight = 240;
+        }
+        if (game.selectedMap.equals(String.valueOf(Level.OUTSIDE))) {
+            mapRight= 480;
+        }
+        if(mapRight < camera.viewportWidth)
         {
             camera.position.x = mapRight / 2;
         }

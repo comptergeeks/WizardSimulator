@@ -1,23 +1,22 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class OutsideLevel extends ScreenAdapter {
+    //game screen is where all the shared values are
     GameScreen game;
 
     public OutsideLevel(GameScreen game) {
+        //starting position for wizard
         game.wizard.x = 40;
         this.game = game;
+        //load correct map
         game.loadMap(game.outsideScene);
+        //set selected map from enum for state of game, this is to set up collision
         game.selectedMap = String.valueOf(Level.OUTSIDE);
     }
+    //render is how often the screen is updating
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         game.batch.begin();
@@ -27,9 +26,11 @@ public class OutsideLevel extends ScreenAdapter {
 		game.renderer.setView(game.camera);
 		game.wizard.render();
         game.worldCam.updateCameraPos();
+        //relative location of house
         if(game.wizard.sendX() > 428 && game.wizard.sendX() < 478 && game.wizard.sendY() > 316 && game.wizard.sendY() < 330) {
             game.setScreen(new Inside(game));
-            game.wizard.x = 16;
+            //set wizard to new position after changing screens
+            game.wizard.x = 32;
             game.wizard.y = 0;
             game.camera.update();
             game.worldCam.updateCameraPos();

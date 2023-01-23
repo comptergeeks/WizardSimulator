@@ -21,6 +21,7 @@ public class TitleScreen extends ScreenAdapter {
     Float fadeTime = 1f;
 
     public TitleScreen(GameScreen game) {
+        //create title screen
         this.game = game;
         background = new Texture("/Users/farhankhan/Documents/school/12 grade/RPGProject/assets/starting graphics/background.png");
         title = new Texture("/Users/farhankhan/Documents/school/12 grade/RPGProject/assets/starting graphics/wizardsimulator.png");
@@ -28,10 +29,12 @@ public class TitleScreen extends ScreenAdapter {
         start = new Image(pressEnter);
     }
     public void show(){
+        //get input for screen, and future screens
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.ENTER) {
+                    //change screen when enter is pressed
                     game.setScreen(new OutsideLevel(game));
                 }
                 return true;
@@ -50,6 +53,7 @@ public class TitleScreen extends ScreenAdapter {
 
     }
     public void hide() {
+        Gdx.input.setInputProcessor(null);
         background.dispose();
     }
 
